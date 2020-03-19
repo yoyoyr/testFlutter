@@ -2,6 +2,9 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_json_demo/widget/FutureBuilderTest/FutureBuilderTest.dart';
+import 'package:flutter_json_demo/widget/PointEvent/DemoApp.dart';
+import 'package:flutter_json_demo/widget/PointEvent/Drag.dart';
+import 'package:flutter_json_demo/widget/PointEvent/PointEvent.dart';
 import 'package:flutter_json_demo/widget/inherite/InheritedWidgetTestRoute.dart';
 import 'package:flutter_json_demo/widget/inherite/ShareDataWidget.dart';
 import 'package:flutter_json_demo/widget/inherite/TestWidget.dart';
@@ -49,12 +52,23 @@ class _MyAppState extends State<_MyAppWidget> {
   List<Widget> widgets;
 
   void _loadJson() async {
-    names = ["ProviderRoute", "InheritedWidgetTestRoute", "NotificationRouter","FutureBuilder"];
+    names = [
+      "Provider",
+      "InheritedWidget",
+      "Notification",
+      "FutureBuilder",
+      "PointEvent",
+      "Drag",
+      "滑动冲突"
+    ];
     widgets = [
       ProviderRoute(),
       InheritedWidgetTestRoute(),
       NotificationRouter(),
       FutureBuilderTest(),
+      PointEvent(),
+      Drag(),
+      DemoApp(),
     ];
     print("name = ${names.length}");
     print("widgets = ${widgets.length}");
@@ -72,20 +86,22 @@ class _MyAppState extends State<_MyAppWidget> {
     print("build");
     return new Scaffold(
       appBar: AppBar(),
-      body: ListView.builder(itemBuilder: (content, index) {
-        return Container(
-          margin: EdgeInsets.all(20),
-          child: InkWell(
-            child: Text(names[index]),
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return widgets[index];
-              }));
-            },
-          ),
-        );
-      },itemCount: names.length,),
+      body: ListView.builder(
+        itemBuilder: (content, index) {
+          return Container(
+            margin: EdgeInsets.all(20),
+            child: InkWell(
+              child: Text(names[index]),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return widgets[index];
+                }));
+              },
+            ),
+          );
+        },
+        itemCount: names.length,
+      ),
     );
   }
 }
-
